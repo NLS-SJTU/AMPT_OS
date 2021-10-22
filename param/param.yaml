@@ -1,0 +1,60 @@
+%YAML:1.0
+
+ampt:
+ # path of prior graph, with node.txt and edge.txt
+ graph_path: /home/xuewuyang/catkin_ws/src/AMPT_OS/topodata/
+ simenv_graph: /home/xuewuyang/catkin_ws/src/AMPT_OS/topodata/3/simenv_graph/
+ prior_graph: /home/xuewuyang/catkin_ws/src/AMPT_OS/topodata/3/prior_graph/
+ visited_graph: /home/xuewuyang/catkin_ws/src/AMPT_OS/topodata/3/Topomap/
+
+ # decision params
+ # mode = 0-test, 1-known start node, 2-actloc, 3-locsim, 4-actlocsim, 5-viterbilocsim, 6-baseline-actlocsim, 7-get puzzle zone, 8-test RCPP, 9-overlay map
+ # p_prior = q * p_visited + t
+ decision:
+  mode: 9
+  t_prior_visited_x: 17.5
+  t_prior_visited_y: 2.5
+  t_prior_visited_z: 0.0
+  q_prior_visited_w: 1.0
+  q_prior_visited_x: 0.0
+  q_prior_visited_y: 0.0
+  q_prior_visited_z: 0.0
+ # baseline_actloc_ctrl = 0-random action, 1-furthest action, under 6-baseline-actlocsim mode
+  baseline_actloc_ctrl: 0
+ # graph_matching_loc = 0-our graph matching method, 1-first order gm method, 2-second order gm method. under 3-locsim mode
+  graph_matching_loc: 2
+ # furthest strategy (-1 for random first action)
+  first_action: 4.5
+ # chosen puzzle zone is largest-1, smallest-0, allrelated-2
+  puzzle_type: 2
+
+ # graph matching params
+ graphmatching:
+  vote_resolution: 0.5
+ # S_m
+  vote_threshold: 0.16
+ # S_m for self matching
+  vote_threshold_selfmatch: 0.7
+  err_threshold: 0.8
+  err_factor_cos: 1.0
+  err_factor_dist: 0.0
+  permitted_center_dist: 2.5
+  permitted_center_dist_rate: 0.1
+  permitted_rotation: 0.2
+ # self match this factor set small like 5, otherwise set large like 10000
+  permitted_rotation_norm_factor: 10000.0
+  scale_factor: 1.0
+  dist_factor: 1.0
+  max_sinkhorn_iter: 5
+  max_show_result: 20
+
+ RCPP:
+  undirected: 1
+
+ TopoSim:
+  visited_graph_covariance: 0.2
+  sim_path_to_go: !!opencv-matrix
+   rows: 1
+   cols: 10
+   dt: i
+   data: [ 76, 10, 16, 29, 25, 30, 35, 38, 44, 47 ]

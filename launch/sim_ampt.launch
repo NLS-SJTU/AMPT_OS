@@ -1,0 +1,11 @@
+<!---->
+<launch>
+  <param name="/use_sim_time" value="true" />
+  <arg name="paramfile" default="$(find ampt_os)/param/param.yaml"/>
+  <!--rosparam command="load" file="$(arg paramfile)"/-->
+  <node name="ampt_node" pkg="ampt_os" type="ampt_main" args="$(arg paramfile)" respawn="false" output="screen">
+    <remap from="RosAria/cmd_vel" to="sim_p3at/cmd_vel" />
+    <remap from="slam/posecov" to="real/posecov" />
+    <!--remap from="point_to_point/path" to="nothing" /-->
+  </node>
+</launch>
